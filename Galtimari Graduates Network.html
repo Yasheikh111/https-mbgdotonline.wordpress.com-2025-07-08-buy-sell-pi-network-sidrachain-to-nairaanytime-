@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galtimari BSc / NCE / Diploma Graduate Website (G.G.N.)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0B1E3D',
+                            900: '#061329',
+                        },
+                        gold: {
+                            400: '#FACC15',
+                            500: '#EAB308',
+                            600: '#CA8A04',
+                        },
+                        emerald: {
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-navy {
+            background: linear-gradient(135deg, #061329 0%, #0B1E3D 60%, #1e3a8a 100%);
+        }
+        .gold-border {
+            border-color: #EAB308;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-navy-900 text-white shadow-lg border-b border-gold-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-12 h-12 rounded-full border-2 border-gold-500 bg-white flex items-center justify-center overflow-hidden shadow-inner flex-shrink-0">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-navy-900">
+                            <circle cx="50" cy="50" r="45" fill="#0B1E3D" stroke="#EAB308" stroke-width="4"/>
+                            <path d="M50 20 L80 35 L50 50 L20 35 Z" fill="#EAB308"/>
+                            <path d="M35 45 L35 65 C35 72 65 72 65 65 L65 45" fill="none" stroke="#059669" stroke-width="4"/>
+                            <text x="50" y="85" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="bold">G.G.N.</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Galtimari Graduates Network</h1>
+                        <p class="text-xs text-gold-400 font-medium">B.Sc • NCE • Diploma Community</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex space-x-1 items-center font-medium text-sm">
+                    <button onclick="switchTab('home')" id="nav-home" class="px-3 py-2 rounded-md transition text-gold-400 hover:text-white hover:bg-navy-800">Home</button>
+                    <button onclick="switchTab('community')" id="nav-community" class="px-3 py-2 rounded-md transition text-slate-300 hover:text-white hover:bg-navy-800">Community Board</button>
+                    <button onclick="switchTab('directory')" id="nav-directory" class="px-3 py-2 rounded-md transition text-slate-300 hover:text-white hover:bg-navy-800">Directory</button>
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 rounded-md transition text-slate-300 hover:text-white hover:bg-navy-800">Dashboard</button>
+                    <button onclick="switchTab('admin')" id="nav-admin" class="px-3 py-2 rounded-md transition text-slate-300 hover:text-white hover:bg-navy-800">Admin Panel</button>
+                </nav>
+
+                <!-- Social Links & Auth Action -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <a href="https://www.facebook.com/profile.php?id=61595684587450" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full text-xs transition flex items-center justify-center w-8 h-8" title="Facebook Page">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://chat.whatsapp.com/GHAvp3cjMqJAyySjgpaXZ7?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" rel="noopener" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-full text-xs transition flex items-center justify-center w-8 h-8" title="WhatsApp Group">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <div id="auth-btn-container">
+                        <button onclick="openAuthModal()" class="bg-gold-500 hover:bg-gold-600 text-navy-900 px-4 py-2 rounded-lg font-bold text-sm shadow transition">
+                            Register / Login
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="toggleMobileMenu()" class="text-slate-300 hover:text-white p-2 rounded-md focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-navy-800 border-t border-navy-800 px-4 pt-2 pb-4 space-y-2 text-sm">
+            <button onclick="switchTab('home')" class="block w-full text-left px-3 py-2 rounded text-slate-200 hover:bg-navy-900">Home</button>
+            <button onclick="switchTab('community')" class="block w-full text-left px-3 py-2 rounded text-slate-200 hover:bg-navy-900">Community Board</button>
+            <button onclick="switchTab('directory')" class="block w-full text-left px-3 py-2 rounded text-slate-200 hover:bg-navy-900">Directory</button>
+            <button onclick="switchTab('dashboard')" class="block w-full text-left px-3 py-2 rounded text-slate-200 hover:bg-navy-900">My Dashboard</button>
+            <button onclick="switchTab('admin')" class="block w-full text-left px-3 py-2 rounded text-slate-200 hover:bg-navy-900">Admin Panel</button>
+            <div class="pt-2 border-t border-navy-700 flex items-center justify-between">
+                <div class="flex space-x-2">
+                    <a href="https://www.facebook.com/profile.php?id=61595684587450" target="_blank" class="bg-blue-600 text-white p-2 rounded-full text-xs"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://chat.whatsapp.com/GHAvp3cjMqJAyySjgpaXZ7?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" class="bg-emerald-600 text-white p-2 rounded-full text-xs"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <button onclick="openAuthModal()" class="bg-gold-500 text-navy-900 px-4 py-2 rounded-lg font-bold text-xs">Register / Sign In</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINERS -->
+    <main class="flex-grow">
+
+        <!-- TAB 1: HOME PAGE -->
+        <section id="tab-home" class="space-y-12 pb-12">
+            <!-- Hero Banner -->
+            <div class="gradient-navy text-white relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+                    <div class="inline-flex items-center space-x-2 bg-navy-800/80 border border-gold-500/40 rounded-full px-4 py-1.5 text-xs sm:text-sm font-semibold text-gold-400">
+                        <i class="fas fa-bullhorn text-gold-400"></i>
+                        <span>Galtimari Graduates Mobilization & Empowerment Initiative</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                        Empowering Galtimari Graduates For <span class="text-gold-400">Government & Career Opportunities</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                        Uniting all <strong>B.Sc, NCE, and Diploma</strong> graduates from Galtimari community into one unified registry to present to government authorities, corporate bodies, and recruitment agencies.
+                    </p>
+
+                    <!-- Goal Progress Tracker (10,000 Target) -->
+                    <div class="max-w-2xl mx-auto bg-navy-900/90 border border-gold-500/30 p-6 rounded-2xl shadow-2xl space-y-4 backdrop-blur">
+                        <div class="flex justify-between items-center text-sm font-bold">
+                            <span class="text-slate-300">Registration Progress</span>
+                            <span class="text-gold-400"><span id="hero-current-count">1,842</span> / 10,000 Graduates Registered</span>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-slate-800 h-5 rounded-full overflow-hidden p-1 border border-slate-700">
+                            <div id="hero-progress-bar" class="bg-gradient-to-r from-gold-600 via-gold-400 to-emerald-600 h-full rounded-full transition-all duration-1000 shadow" style="width: 18.42%;"></div>
+                        </div>
+
+                        <div class="flex justify-between text-xs text-slate-400">
+                            <span>Goal: 10,000 Database Submission</span>
+                            <span id="hero-percent-text">18.4% Achieved</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="openAuthModal()" class="w-full sm:w-auto bg-gold-500 hover:bg-gold-600 text-navy-900 font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 text-base">
+                            <i class="fas fa-user-plus mr-2"></i> Register As a Graduate Now
+                        </button>
+                        <button onclick="switchTab('directory')" class="w-full sm:w-auto bg-slate-800/80 hover:bg-slate-700 text-white font-semibold px-6 py-3.5 rounded-xl border border-slate-600 transition text-base">
+                            <i class="fas fa-search mr-2"></i> View Graduate Directory
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Motto & Values -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center space-y-3">
+                        <div class="w-12 h-12 bg-navy-800/10 text-navy-900 rounded-xl flex items-center justify-center mx-auto text-xl">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy-900">UNITY</h3>
+                        <p class="text-sm text-slate-600">Bringing together all holders of B.Sc, NCE, HND, and National Diplomas under one single official voice.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center space-y-3">
+                        <div class="w-12 h-12 bg-gold-500/10 text-gold-600 rounded-xl flex items-center justify-center mx-auto text-xl">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy-900">OPPORTUNITY</h3>
+                        <p class="text-sm text-slate-600">Connecting qualified graduates directly to government civil service opportunities, NGOs, and private sector roles.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center space-y-3">
+                        <div class="w-12 h-12 bg-emerald-600/10 text-emerald-600 rounded-xl flex items-center justify-center mx-auto text-xl">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy-900">EMPOWERMENT</h3>
+                        <p class="text-sm text-slate-600">Mentorship, skills enhancement, leadership training, and community development support for our youth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct Social Connect Cards -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 rounded-2xl text-white p-8 border border-gold-500/20 shadow-xl">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div>
+                            <h2 class="text-2xl font-bold">Stay Connected With G.G.N. Official Channels</h2>
+                            <p class="text-slate-300 text-sm mt-1">Get instant announcements regarding government recruitment, meetings, and updates.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://chat.whatsapp.com/GHAvp3cjMqJAyySjgpaXZ7?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-3 rounded-xl transition flex items-center gap-2">
+                                <i class="fab fa-whatsapp text-xl"></i> Join Official WhatsApp Group
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=61595684587450" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-3 rounded-xl transition flex items-center gap-2">
+                                <i class="fab fa-facebook-f text-xl"></i> Follow Facebook Page
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: COMMUNITY DISCUSSION BOARD -->
+        <section id="tab-community" class="hidden max-w-5xl mx-auto px-4 py-8 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div>
+                    <h2 class="text-2xl font-bold text-navy-900">Community Discussion & Announcements</h2>
+                    <p class="text-slate-600 text-sm">Share job opportunities, discussions, and updates with fellow Galtimari graduates.</p>
+                </div>
+                <button onclick="checkAuthAndPost()" class="bg-navy-900 hover:bg-navy-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition">
+                    <i class="fas fa-plus mr-2"></i> Create Post
+                </button>
+            </div>
+
+            <!-- Post Creation Box -->
+            <div id="post-create-box" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="font-bold text-navy-900 text-lg">Share an Update / Opportunity</h3>
+                <input type="text" id="post-title" placeholder="Title or Topic (e.g., Federal Teachers Recruitment Alert)" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                <textarea id="post-content" rows="3" placeholder="Write details here..." class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none"></textarea>
+                <div class="flex justify-end space-x-2">
+                    <button onclick="document.getElementById('post-create-box').classList.add('hidden')" class="px-4 py-2 text-slate-600 font-medium text-sm">Cancel</button>
+                    <button onclick="submitNewPost()" class="bg-gold-500 hover:bg-gold-600 text-navy-900 px-6 py-2 rounded-xl font-bold text-sm">Publish</button>
+                </div>
+            </div>
+
+            <!-- Posts List Feed -->
+            <div id="posts-container" class="space-y-4">
+                <!-- Sample Posts Render Dynamic -->
+            </div>
+        </section>
+
+        <!-- TAB 3: MEMBERS DIRECTORY -->
+        <section id="tab-directory" class="hidden max-w-7xl mx-auto px-4 py-8 space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-navy-900">Galtimari Graduate Directory</h2>
+                        <p class="text-slate-600 text-sm">Public listing of registered degree, diploma, and NCE holders.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="directory-search" onkeyup="filterDirectory()" placeholder="Search by name, course, or degree..." class="px-4 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-navy-800 outline-none w-full md:w-64">
+                    </div>
+                </div>
+
+                <!-- Directory Grid/Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-100 text-slate-700 font-semibold uppercase text-xs">
+                            <tr>
+                                <th class="p-3.5 rounded-l-lg">Graduate Name</th>
+                                <th class="p-3.5">Qualification</th>
+                                <th class="p-3.5">Field / Discipline</th>
+                                <th class="p-3.5">Year</th>
+                                <th class="p-3.5 rounded-r-lg">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="directory-table-body" class="divide-y divide-slate-100">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: USER DASHBOARD -->
+        <section id="tab-dashboard" class="hidden max-w-5xl mx-auto px-4 py-8 space-y-6">
+            <div id="dashboard-logged-out" class="bg-white p-8 rounded-2xl text-center border border-slate-200 space-y-4">
+                <div class="w-16 h-16 bg-gold-500/20 text-gold-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3 class="text-xl font-bold text-navy-900">Sign In to Access Your Dashboard</h3>
+                <p class="text-slate-600 text-sm max-w-md mx-auto">Please sign in or register to update your profile, view verification status, and upload qualifications.</p>
+                <button onclick="openAuthModal()" class="bg-navy-900 hover:bg-navy-800 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm">
+                    Register / Sign In
+                </button>
+            </div>
+
+            <div id="dashboard-logged-in" class="hidden space-y-6">
+                <!-- Profile Header Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-20 h-20 bg-navy-900 text-gold-400 font-bold text-2xl rounded-2xl flex items-center justify-center border-2 border-gold-500" id="dash-avatar">
+                            MB
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h2 class="text-2xl font-bold text-navy-900" id="dash-fullname">Mustapha Bukar</h2>
+                                <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1">
+                                    <i class="fas fa-check-circle"></i> Registered Member
+                                </span>
+                            </div>
+                            <p class="text-sm text-slate-500" id="dash-email">mustapha@example.com</p>
+                            <p class="text-xs text-slate-400 mt-1">Member ID: GGN-2024-<span id="dash-id">8831</span></p>
+                        </div>
+                    </div>
+                    <button onclick="logoutUser()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl font-medium text-xs transition">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Sign Out
+                    </button>
+                </div>
+
+                <!-- Profile Update Form -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-lg font-bold text-navy-900 border-b pb-2">Your Profile Details</h3>
+                    <form id="profile-edit-form" onsubmit="saveProfileUpdates(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Full Name</label>
+                            <input type="text" id="edit-fullname" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Phone Number</label>
+                            <input type="text" id="edit-phone" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Highest Qualification</label>
+                            <select id="edit-qualification" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                                <option value="B.Sc">B.Sc (Bachelor of Science)</option>
+                                <option value="B.A">B.A (Bachelor of Arts)</option>
+                                <option value="B.Ed">B.Ed (Bachelor of Education)</option>
+                                <option value="NCE">NCE (Nigeria Certificate in Education)</option>
+                                <option value="HND">HND (Higher National Diploma)</option>
+                                <option value="Diploma">National Diploma (ND)</option>
+                                <option value="Master's">Master's Degree</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Discipline / Course of Study</label>
+                            <input type="text" id="edit-discipline" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Year of Graduation</label>
+                            <input type="number" id="edit-gradyear" min="1990" max="2026" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Employment Status</label>
+                            <select id="edit-employment" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                                <option value="Seeking Employment">Seeking Employment</option>
+                                <option value="Employed">Employed (Government/Private)</option>
+                                <option value="Self-Employed">Self-Employed / Entrepreneur</option>
+                            </select>
+                        </div>
+                        <div class="sm:col-span-2 pt-2">
+                            <button type="submit" class="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold px-6 py-2.5 rounded-xl transition">
+                                <i class="fas fa-save mr-2"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: ADMIN PANEL & CSV EXPORT -->
+        <section id="tab-admin" class="hidden max-w-7xl mx-auto px-4 py-8 space-y-6">
+            <div class="bg-navy-900 text-white p-6 rounded-2xl shadow-lg border border-gold-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">GGN Administrator Portal</h2>
+                    <p class="text-slate-300 text-sm">Database & registry for government advocacy presentation.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl transition text-sm flex items-center gap-2 shadow">
+                        <i class="fas fa-file-excel"></i> Export All 10,000 List to Excel/CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Analytics Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-500 uppercase">Total Registered</div>
+                    <div class="text-2xl font-extrabold text-navy-900 mt-1" id="admin-stat-total">1,842</div>
+                    <div class="text-xs text-emerald-600 mt-1"><i class="fas fa-arrow-up"></i> Growing daily</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-500 uppercase">B.Sc / Degree Holders</div>
+                    <div class="text-2xl font-extrabold text-navy-900 mt-1" id="admin-stat-bsc">920</div>
+                    <div class="text-xs text-slate-500 mt-1">49.9% of registry</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-500 uppercase">NCE Graduates</div>
+                    <div class="text-2xl font-extrabold text-navy-900 mt-1" id="admin-stat-nce">530</div>
+                    <div class="text-xs text-slate-500 mt-1">28.7% of registry</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-500 uppercase">Diploma / ND Holders</div>
+                    <div class="text-2xl font-extrabold text-navy-900 mt-1" id="admin-stat-diploma">392</div>
+                    <div class="text-xs text-slate-500 mt-1">21.4% of registry</div>
+                </div>
+            </div>
+
+            <!-- Database Connection Status Badge -->
+            <div class="bg-slate-100 border border-slate-200 p-4 rounded-xl text-xs text-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Database Target: <code class="bg-white px-2 py-0.5 rounded border text-navy-900">https://csmyqxjygxgmducytbvk.supabase.co</code></span>
+                </div>
+                <span class="text-slate-500">Auto-syncing registrations to central administration</span>
+            </div>
+
+            <!-- Member Database Table -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <h3 class="font-bold text-navy-900 text-lg">Official Graduate Registry</h3>
+                    <input type="text" id="admin-search" onkeyup="filterAdminTable()" placeholder="Search members..." class="px-4 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-navy-800 outline-none w-full sm:w-64">
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-navy-900 text-white text-xs uppercase">
+                            <tr>
+                                <th class="p-3">ID</th>
+                                <th class="p-3">Full Name</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Phone</th>
+                                <th class="p-3">Qualification</th>
+                                <th class="p-3">Discipline</th>
+                                <th class="p-3">Year</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-slate-100">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- AUTHENTICATION MODAL (SIGN IN / REGISTER) -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Modal Toggle Header -->
+            <div class="text-center space-y-1">
+                <h3 class="text-xl font-bold text-navy-900" id="modal-title">Graduate Registration</h3>
+                <p class="text-xs text-slate-500">Join the official Galtimari Graduates Network registry.</p>
+            </div>
+
+            <!-- Tab Selector -->
+            <div class="flex bg-slate-100 p-1 rounded-xl text-sm font-semibold">
+                <button onclick="setAuthMode('signup')" id="btn-tab-signup" class="flex-1 py-2 rounded-lg bg-navy-900 text-white shadow">Register</button>
+                <button onclick="setAuthMode('login')" id="btn-tab-login" class="flex-1 py-2 rounded-lg text-slate-600">Sign In</button>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-3 text-sm">
+                <div id="signup-fields" class="space-y-3">
+                    <div>
+                        <label class="block font-medium text-slate-700 text-xs mb-1">Full Name</label>
+                        <input type="text" id="reg-fullname" placeholder="e.g. Mustapha Bukar" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 text-xs mb-1">Phone Number</label>
+                        <input type="tel" id="reg-phone" placeholder="e.g. 08012345678" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-medium text-slate-700 text-xs mb-1">Qualification</label>
+                            <select id="reg-qualification" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="NCE">NCE</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="HND">HND</option>
+                                <option value="Master's">Master's</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 text-xs mb-1">Graduation Year</label>
+                            <input type="number" id="reg-year" placeholder="2023" min="1990" max="2026" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 text-xs mb-1">Discipline / Course</label>
+                        <input type="text" id="reg-discipline" placeholder="e.g. Computer Science, Public Admin" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-slate-700 text-xs mb-1">Email Address</label>
+                    <input type="email" id="reg-email" required placeholder="your.email@example.com" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-medium text-slate-700 text-xs mb-1">Password</label>
+                    <input type="password" id="reg-password" required placeholder="••••••••" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-navy-800 outline-none">
+                </div>
+
+                <button type="submit" id="modal-submit-btn" class="w-full bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-3 rounded-xl transition shadow text-sm mt-2">
+                    Complete Registration
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-900 text-white border-t border-navy-800 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full border border-gold-500 bg-white flex items-center justify-center overflow-hidden">
+                            <span class="font-bold text-navy-900 text-xs">GGN</span>
+                        </div>
+                        <h4 class="font-bold text-lg text-white">Galtimari Graduates Network</h4>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Building a brighter future through family support, education, and collective representation.
+                    </p>
+                    <p class="text-xs font-semibold text-gold-400 uppercase tracking-wider">
+                        UNITY • OPPORTUNITY • EMPOWERMENT
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="font-bold text-sm text-gold-400 mb-3">Quick Navigation</h5>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li><a href="#" onclick="switchTab('home')" class="hover:text-white">Home Page</a></li>
+                        <li><a href="#" onclick="switchTab('community')" class="hover:text-white">Community Discussion Board</a></li>
+                        <li><a href="#" onclick="switchTab('directory')" class="hover:text-white">Graduate Directory</a></li>
+                        <li><a href="#" onclick="switchTab('admin')" class="hover:text-white">Admin Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-bold text-sm text-gold-400 mb-3">Official Links & Database</h5>
+                    <div class="space-y-2 text-xs text-slate-300">
+                        <p><i class="fab fa-facebook text-blue-500 mr-2"></i> <a href="https://www.facebook.com/profile.php?id=61595684587450" target="_blank" class="hover:underline">Official Facebook Page</a></p>
+                        <p><i class="fab fa-whatsapp text-emerald-500 mr-2"></i> <a href="https://chat.whatsapp.com/GHAvp3cjMqJAyySjgpaXZ7?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" class="hover:underline">Official WhatsApp Group</a></p>
+                        <p class="pt-2 text-slate-400">Database API Target: <br><code class="text-xs text-gold-400">csmyqxjygxgmducytbvk.supabase.co</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-navy-800 pt-6 text-center text-xs text-slate-500">
+                &copy; 2024 - 2026 Galtimari Graduates Network (G.G.N.). All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // GLOBAL STATE & DATA
+        let currentUser = null;
+        let authMode = 'signup';
+
+        // Sample initial seed dataset to simulate 10,000 progress & registry view
+        let membersData = [
+            { id: 1001, name: "Mustapha Bukar", email: "mustapha.bukar@galtimari.org", phone: "08031234567", qualification: "B.Sc", discipline: "Computer Science", year: 2023, status: "Verified" },
+            { id: 1002, name: "Fatima Ali", email: "fatima.ali@galtimari.org", phone: "08029876543", qualification: "NCE", discipline: "English Education", year: 2022, status: "Verified" },
+            { id: 1003, name: "Ibrahim Usman", email: "ibrahim.u@galtimari.org", phone: "07055512345", qualification: "Diploma", discipline: "Public Administration", year: 2024, status: "Pending" },
+            { id: 1004, name: "Aisha Mohammed", email: "aisha.m@galtimari.org", phone: "08144433221", qualification: "B.Sc", discipline: "Economics", year: 2021, status: "Verified" },
+            { id: 1005, name: "Babagana Kyari", email: "babagana.k@galtimari.org", phone: "08099887766", qualification: "HND", discipline: "Civil Engineering", year: 2023, status: "Verified" },
+            { id: 1006, name: "Zainab Shettima", email: "zainab.s@galtimari.org", phone: "08122334455", qualification: "NCE", discipline: "Social Studies", year: 2020, status: "Verified" }
+        ];
+
+        let postsData = [
+            {
+                id: 1,
+                author: "G.G.N. Executive Committee",
+                title: "Official Announcement: Upcoming Ministry Roster Submission",
+                content: "We are finalizing the first batch of 2,000 verified B.Sc and NCE graduates for submission to the Civil Service Commission. Please ensure all your qualification details are up to date.",
+                date: "2 hours ago",
+                tag: "Official"
+            },
+            {
+                id: 2,
+                author: "Mustapha Bukar",
+                title: "Teaching Recruitment Vacancies in Local Secondary Schools",
+                content: "Calling on all NCE and B.Ed holders in Galtimari! Applications are open for mathematics and sciences tutors. Check your dashboard for reference links.",
+                date: "Yesterday",
+                tag: "Job Alert"
+            }
+        ];
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderDirectory();
+            renderAdminTable();
+            renderPosts();
+            updateStats();
+        };
+
+        // NAVIGATION TAB SWITCHER
+        function switchTab(tabName) {
+            const tabs = ['home', 'community', 'directory', 'dashboard', 'admin'];
+            tabs.forEach(tab => {
+                const sec = document.getElementById('tab-' + tab);
+                const nav = document.getElementById('nav-' + tab);
+                if (sec) sec.classList.add('hidden');
+                if (nav) {
+                    nav.classList.remove('text-gold-400');
+                    nav.classList.add('text-slate-300');
+                }
+            });
+
+            const activeSec = document.getElementById('tab-' + tabName);
+            const activeNav = document.getElementById('nav-' + tabName);
+            if (activeSec) activeSec.classList.remove('hidden');
+            if (activeNav) {
+                activeNav.classList.add('text-gold-400');
+                activeNav.classList.remove('text-slate-300');
+            }
+
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // AUTHENTICATION MODAL MANAGEMENT
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function setAuthMode(mode) {
+            authMode = mode;
+            const btnSignup = document.getElementById('btn-tab-signup');
+            const btnLogin = document.getElementById('btn-tab-login');
+            const signupFields = document.getElementById('signup-fields');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubmitBtn = document.getElementById('modal-submit-btn');
+
+            if (mode === 'signup') {
+                btnSignup.className = "flex-1 py-2 rounded-lg bg-navy-900 text-white shadow";
+                btnLogin.className = "flex-1 py-2 rounded-lg text-slate-600";
+                signupFields.classList.remove('hidden');
+                modalTitle.innerText = "Graduate Registration";
+                modalSubmitBtn.innerText = "Complete Registration";
+            } else {
+                btnLogin.className = "flex-1 py-2 rounded-lg bg-navy-900 text-white shadow";
+                btnSignup.className = "flex-1 py-2 rounded-lg text-slate-600";
+                signupFields.classList.add('hidden');
+                modalTitle.innerText = "Member Sign In";
+                modalSubmitBtn.innerText = "Sign In To Account";
+            }
+        }
+
+        // HANDLE SUBMIT (SIGNUP/LOGIN) & SUPABASE CONNECTION SIMULATION
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('reg-email').value;
+
+            if (authMode === 'signup') {
+                const name = document.getElementById('reg-fullname').value || "Registered Graduate";
+                const phone = document.getElementById('reg-phone').value || "08000000000";
+                const qualification = document.getElementById('reg-qualification').value;
+                const discipline = document.getElementById('reg-discipline').value || "General Studies";
+                const year = document.getElementById('reg-year').value || "2024";
+
+                const newMember = {
+                    id: 1000 + membersData.length + 1,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    qualification: qualification,
+                    discipline: discipline,
+                    year: parseInt(year),
+                    status: "Verified"
+                };
+
+                // Add locally
+                membersData.unshift(newMember);
+
+                // Simulate posting to official Supabase Endpoint
+                console.log("Sending registration data to Supabase:", "https://csmyqxjygxgmducytbvk.supabase.co", newMember);
+
+                currentUser = newMember;
+            } else {
+                // Find existing or mock user
+                const existing = membersData.find(m => m.email.toLowerCase() === email.toLowerCase());
+                currentUser = existing || {
+                    id: 9999,
+                    name: "Galtimari Graduate",
+                    email: email,
+                    phone: "08011112222",
+                    qualification: "B.Sc",
+                    discipline: "Administration",
+                    year: 2023,
+                    status: "Verified"
+                };
+            }
+
+            // Update UI State
+            closeAuthModal();
+            updateUserUI();
+            updateStats();
+            renderDirectory();
+            renderAdminTable();
+            switchTab('dashboard');
+        }
+
+        function updateUserUI() {
+            const container = document.getElementById('auth-btn-container');
+            if (currentUser) {
+                container.innerHTML = `
+                    <button onclick="switchTab('dashboard')" class="bg-navy-800 hover:bg-navy-700 text-gold-400 px-4 py-2 rounded-lg font-bold text-xs border border-gold-500/30 flex items-center gap-2">
+                        <i class="fas fa-user-circle"></i> ${currentUser.name.split(' ')[0]}
+                    </button>
+                `;
+
+                // Update Dashboard Views
+                document.getElementById('dashboard-logged-out').classList.add('hidden');
+                document.getElementById('dashboard-logged-in').classList.remove('hidden');
+
+                document.getElementById('dash-fullname').innerText = currentUser.name;
+                document.getElementById('dash-email').innerText = currentUser.email;
+                document.getElementById('dash-id').innerText = currentUser.id;
+                document.getElementById('dash-avatar').innerText = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+
+                // Fill Edit Form
+                document.getElementById('edit-fullname').value = currentUser.name;
+                document.getElementById('edit-phone').value = currentUser.phone;
+                document.getElementById('edit-qualification').value = currentUser.qualification;
+                document.getElementById('edit-discipline').value = currentUser.discipline;
+                document.getElementById('edit-gradyear').value = currentUser.year;
+            } else {
+                container.innerHTML = `
+                    <button onclick="openAuthModal()" class="bg-gold-500 hover:bg-gold-600 text-navy-900 px-4 py-2 rounded-lg font-bold text-sm shadow transition">
+                        Register / Login
+                    </button>
+                `;
+                document.getElementById('dashboard-logged-out').classList.remove('hidden');
+                document.getElementById('dashboard-logged-in').classList.add('hidden');
+            }
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            updateUserUI();
+            switchTab('home');
+        }
+
+        function saveProfileUpdates(e) {
+            e.preventDefault();
+            if (!currentUser) return;
+
+            currentUser.name = document.getElementById('edit-fullname').value;
+            currentUser.phone = document.getElementById('edit-phone').value;
+            currentUser.qualification = document.getElementById('edit-qualification').value;
+            currentUser.discipline = document.getElementById('edit-discipline').value;
+            currentUser.year = parseInt(document.getElementById('edit-gradyear').value);
+
+            // Update in array
+            const idx = membersData.findIndex(m => m.id === currentUser.id);
+            if (idx !== -1) membersData[idx] = currentUser;
+
+            updateUserUI();
+            renderDirectory();
+            renderAdminTable();
+        }
+
+        // STATS & PROGRESS TRACKER
+        function updateStats() {
+            const totalCount = 1842 + (membersData.length - 6);
+            document.getElementById('hero-current-count').innerText = totalCount.toLocaleString();
+            
+            const bscCount = membersData.filter(m => m.qualification.includes('B.Sc') || m.qualification.includes('B.A') || m.qualification.includes('B.Ed')).length + 915;
+            const nceCount = membersData.filter(m => m.qualification === 'NCE').length + 528;
+            const diplomaCount = totalCount - (bscCount + nceCount);
+
+            document.getElementById('admin-stat-total').innerText = totalCount.toLocaleString();
+            document.getElementById('admin-stat-bsc').innerText = bscCount.toLocaleString();
+            document.getElementById('admin-stat-nce').innerText = nceCount.toLocaleString();
+            document.getElementById('admin-stat-diploma').innerText = diplomaCount.toLocaleString();
+
+            const pct = ((totalCount / 10000) * 100).toFixed(1);
+            document.getElementById('hero-progress-bar').style.width = pct + '%';
+            document.getElementById('hero-percent-text').innerText = pct + '% Achieved';
+        }
+
+        // DIRECTORY RENDER
+        function renderDirectory() {
+            const tbody = document.getElementById('directory-table-body');
+            tbody.innerHTML = '';
+
+            membersData.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
+                tr.innerHTML = `
+                    <td class="p-3.5 font-medium text-navy-900">${m.name}</td>
+                    <td class="p-3.5"><span class="bg-navy-100 text-navy-900 text-xs px-2.5 py-1 rounded-full font-bold">${m.qualification}</span></td>
+                    <td class="p-3.5 text-slate-600">${m.discipline}</td>
+                    <td class="p-3.5 text-slate-500">${m.year}</td>
+                    <td class="p-3.5"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Verified</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterDirectory() {
+            const term = document.getElementById('directory-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#directory-table-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        }
+
+        // ADMIN TABLE RENDER
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '';
+
+            membersData.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-3 text-xs text-slate-400">#${m.id}</td>
+                    <td class="p-3 font-semibold text-navy-900">${m.name}</td>
+                    <td class="p-3 text-slate-600">${m.email}</td>
+                    <td class="p-3 text-slate-600">${m.phone}</td>
+                    <td class="p-3"><span class="bg-gold-500/20 text-gold-700 text-xs px-2 py-0.5 rounded font-bold">${m.qualification}</span></td>
+                    <td class="p-3 text-slate-600">${m.discipline}</td>
+                    <td class="p-3 text-slate-500">${m.year}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterAdminTable() {
+            const term = document.getElementById('admin-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#admin-table-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        }
+
+        // COMMUNITY POSTS
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+
+            postsData.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-navy-900 text-gold-400 rounded-full flex items-center justify-center font-bold text-xs">
+                                ${p.author.substring(0,2).toUpperCase()}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900 text-sm">${p.author}</h4>
+                                <p class="text-xs text-slate-400">${p.date}</p>
+                            </div>
+                        </div>
+                        <span class="bg-gold-100 text-gold-800 text-xs px-2.5 py-1 rounded-full font-bold">${p.tag}</span>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base">${p.title}</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">${p.content}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAuthAndPost() {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+            document.getElementById('post-create-box').classList.remove('hidden');
+        }
+
+        function submitNewPost() {
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+
+            if (!title || !content) return;
+
+            postsData.unshift({
+                id: Date.now(),
+                author: currentUser.name,
+                title: title,
+                content: content,
+                date: "Just now",
+                tag: "Member Post"
+            });
+
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-content').value = '';
+            document.getElementById('post-create-box').classList.add('hidden');
+            renderPosts();
+        }
+
+        // EXPORT TO EXCEL / CSV FOR GOVERNMENT SUBMISSION
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Full Name,Email,Phone,Qualification,Discipline,Graduation Year,Status\n";
+
+            membersData.forEach(m => {
+                csvContent += `${m.id},"${m.name}","${m.email}","${m.phone}","${m.qualification}","${m.discipline}",${m.year},Verified\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Galtimari_Graduates_Registry_10000_Government_Submission.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
